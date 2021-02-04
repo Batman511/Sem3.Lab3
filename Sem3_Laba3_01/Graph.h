@@ -88,18 +88,16 @@ public:
 		for (int i=0; i < size; i++)
 			AddPath(vertex, paths[i]);
 	}
-	
-	// перенести в интерфейс
+
+	/*
 	void Print(){
-		std::cout << " " << std::endl;
-		std::cout << " Vertex " << "| " << "Paths" << std::endl;
-		for (int i=0; i < count; i++)
-		{
-			std::cout << i + 1 << ":";
+		std::cout << "\nVertex: Paths \n";
+		for (int i=0; i < count; i++){
+			std::cout << " " << i + 1 << ": ";
 			graph[i]->Print();
-			std::cout << " " << std::endl;
+			std::cout << "\n";
 		}
-	}
+	} */
 
 	//возвращает номер вершины в графе (иначе -1)
 	int SearchVert(T vertex){
@@ -142,7 +140,7 @@ public:
 		used[i] = true;
 		dist[i] = 0;
 
-		while (queue->Empty()){
+		while (queue->Empty() == true){
 			int v= queue->GetFirst();
 			queue->DeleteFirst();
 
