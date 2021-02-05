@@ -74,11 +74,6 @@ public:
 		for (int i = 0; i < linked_list2->GetLength(); i++)
 			ConcatSequence->Prepend(linked_list2->Get(i));
 
-		/*for (int i=0; i < ConcatSequence->GetLength(); i++) {
-			std::cout << ConcatSequence->Get(i) << " ";
-		};*/
-
-
 		return ConcatSequence;
 	}
 
@@ -96,8 +91,7 @@ public:
 		return linked_list->InsertAt(values, index);
 	}
 
-	bool Empty()
-	{
+	bool Empty(){
 		return linked_list->Empty();
 	}
 

@@ -11,14 +11,14 @@ void interface_Tests() {
 	int choose(0);
 
 	cout << "Choose the Test:\n"
-		<< "1. Test_Array_Sequence \n2. Test_Dynamic_Array \n3. Test_Linked_list \n4. Test_List_Sequence \n";
+		<< "1. Test_Array_Sequence \n2. Test_Dynamic_Array \n3. Test_Linked_list \n4. Test_List_Sequence \n5. Test_Graph \n";
 	do {
 		if (choose1 == "0") cin >> choose1;
-		else if (choose1 != "1" && choose1 != "2" && choose1 != "3" && choose1 != "4") {
-			std::cout << "ERROR. You need choose a number from 1 to 4 \n";
+		else if (choose1 != "1" && choose1 != "2" && choose1 != "3" && choose1 != "4" && choose1 != "5") {
+			std::cout << "ERROR. You need choose a number from 1 to 5 \n";
 			cin >> choose1;
 		}
-	} while (choose1 != "1" && choose1 != "2" && choose1 != "3" && choose1 != "4");
+	} while (choose1 != "1" && choose1 != "2" && choose1 != "3" && choose1 != "4" && choose1 != "5");
 	choose = stoi(choose1);
 	cout << "\n";
 	switch (choose) {
@@ -33,6 +33,9 @@ void interface_Tests() {
 		break;
 	case 4:
 		Test_List_Sequence();
+		break;
+	case 5:
+		Test_Graph();
 		break;
 	default: std::cout << "ERROR. You kill me.";
 	}
@@ -187,20 +190,21 @@ int Test_Linked_list() {
 
 	LinkedList<int> list1{ a,6 };
 	LinkedList<int> list2{ b,5 };
+	LinkedList<int> list3;
 
-	if (list1.GetFirst() == 1)
+	if (list1.GetFirst() == 17)
 		std::cout << "Test GetFirst: success" << "\n";
 	else {
 		std::cout << "Test GetFirst: fail" << "\n";
 	};
 
-	if (list1.GetLast() == 17)
+	if (list1.GetLast() == 1)
 		std::cout << "Test GetLast: success" << "\n";
 	else {
 		std::cout << "Test GetLast: fail" << "\n";
 	};
 
-	if (list1[2] == 5 && list1[5] == 17)
+	if (list1[2] == 7 && list1[5] == 1)
 		std::cout << "Test Operator []: success" << "\n";
 	else {
 		std::cout << "Test Operator []: fail" << "\n";
@@ -212,7 +216,7 @@ int Test_Linked_list() {
 		std::cout << "Test GetLenght: fail" << "\n";
 	};
 
-	if (list1.Get(3) == 7)
+	if (list1.Get(3) == 5)
 		std::cout << "Test Get: success" << "\n";
 	else {
 		std::cout << "Test Get: fail" << "\n";
@@ -233,10 +237,18 @@ int Test_Linked_list() {
 	};
 
 	LinkedList<int>* p = list2.GetSubList(1, 4);
-	if (p->Get(0) == 11 && p->Get(1) == 8 && p->Get(2) == 9 && p->Get(3) == 2)
+	if (p->Get(0) == 9 && p->Get(1) == 8 && p->Get(2) == 11 && p->Get(3) == 5)
 		std::cout << "Test GetSubList: success" << "\n";
 	else {
 		std::cout << "Test GetSubList: fail" << "\n";
+	};
+
+	bool empty1 = list2.Empty();
+	bool empty2 = list3.Empty();
+	if (empty1 == true && empty2 == false)
+		std::cout << "Test Empty: success" << "\n";
+	else {
+		std::cout << "Test Empty: fail" << "\n";
 	};
 
 	list2.InsertAt(3, 2);
@@ -247,13 +259,20 @@ int Test_Linked_list() {
 	};
 
 	LinkedList<int>* p2 = list1.Concat(&list2);
-	if (p2->Get(0) == 5 && p2->Get(1) == 1 && p2->Get(2) == 4 && p2->Get(3) == 5
-		&& p2->Get(4) == 7 && p2->Get(5) == 4 && p2->Get(6) == 17 && p2->Get(7) == 5
-		&& p2->Get(8) == 11 && p2->Get(9) == 3 && p2->Get(10) == 8 && p2->Get(11) == 9
-		&& p2->Get(12) == 2 && p2->Get(13) == 9)
+	if (p2->Get(0) == 2 && p2->Get(1) == 9 && p2->Get(2) == 3 && p2->Get(3) == 8
+		&& p2->Get(4) == 11 && p2->Get(5) == 5 && p2->Get(6) == 9 && p2->Get(7) == 5
+		&& p2->Get(8) == 17 && p2->Get(9) == 4 && p2->Get(10) == 7 && p2->Get(11) == 5
+		&& p2->Get(12) == 4 && p2->Get(13) == 1)
 		std::cout << "Test Concat: success" << "\n";
 	else {
 		std::cout << "Test Concat: fail" << "\n";
+	};
+
+	list2.DeleteFirst();
+	if (list2[0] == 9)
+		std::cout << "Test DeleteFirst: success" << "\n";
+	else {
+		std::cout << "Test DeleteFirst: fail" << "\n";
 	};
 
 	delete[7] a;
@@ -269,19 +288,21 @@ int Test_List_Sequence() {
 	int* b{ new int[5] {5,11,8,9,2} };
 	LinkedListSequence<int> list2{ b,5 };
 
-	if (list1.GetFirst() == 1)
+	LinkedListSequence<int> list3;
+
+	if (list1.GetFirst() == 17)
 		std::cout << "Test GetFirst: success" << "\n";
 	else {
 		std::cout << "Test GetFirst: fail" << "\n";
 	};
 
-	if (list1.GetLast() == 17)
+	if (list1.GetLast() == 1)
 		std::cout << "Test GetLast: success" << "\n";
 	else {
 		std::cout << "Test GetLast: fail" << "\n";
 	};
 
-	if (list1[2] == 5 && list1[5] == 17)
+	if (list1[2] == 7 && list1[5] == 1)
 		std::cout << "Test Operator []: success" << "\n";
 	else {
 		std::cout << "Test Operator []: fail" << "\n";
@@ -293,7 +314,7 @@ int Test_List_Sequence() {
 		std::cout << "Test GetLenght: fail" << "\n";
 	};
 
-	if (list1.Get(3) == 7)
+	if (list1.Get(3) == 5)
 		std::cout << "Test Get: success" << "\n";
 	else {
 		std::cout << "Test Get: fail" << "\n";
@@ -314,10 +335,18 @@ int Test_List_Sequence() {
 	};
 
 	Sequence<int>* p = list2.GetSubSequence(1, 4);
-	if (p->Get(0) == 11 && p->Get(1) == 8 && p->Get(2) == 9 && p->Get(3) == 2)
+	if (p->Get(0) == 9 && p->Get(1) == 8 && p->Get(2) == 11 && p->Get(3) == 5)
 		std::cout << "Test GetSubList: success" << "\n";
 	else {
 		std::cout << "Test GetSubList: fail" << "\n";
+	};
+
+	bool empty1 = list2.Empty();
+	bool empty2 = list3.Empty();
+	if (empty1 == true && empty2 == false)
+		std::cout << "Test Empty: success" << "\n";
+	else {
+		std::cout << "Test Empty: fail" << "\n";
 	};
 
 	list2.InsertAt(3, 2);
@@ -337,6 +366,13 @@ int Test_List_Sequence() {
 		std::cout << "Test Concat: fail" << "\n";
 	};
 
+	list2.DeleteFirst();
+	if (list2[0] == 9)
+		std::cout << "Test DeleteFirst: success" << "\n";
+	else {
+		std::cout << "Test DeleteFirst: fail" << "\n";
+	};
+
 	delete[7] a;
 	delete[6] b;
 
@@ -344,8 +380,24 @@ int Test_List_Sequence() {
 }
 
 int Test_Graph() {
-	
 
+	int* vertex = new int[4];
+	Graph<int> graph1(4, vertex);
+	graph1.AddPath(vertex[0], 1);
+	graph1.AddPath(vertex[1], 0);
+	graph1.AddPath(vertex[1], 2);
+	graph1.AddPath(vertex[1], 3);
+	graph1.AddPath(vertex[2], 1);
+	graph1.AddPath(vertex[2], 3);
+	graph1.AddPath(vertex[3], 2);
+	graph1.AddPath(vertex[3], 1);
+
+	cout << "The adjacency list of a graph: \n"
+		<< "Vertex: Paths \n";
+	for (int i = 0; i < graph1.GetCount(); i++) {
+		cout << " " << vertex[i] << ": ";
+		graph1.GetGraph(vertex[i])->Print();
+	}
 
 
 	return 0;

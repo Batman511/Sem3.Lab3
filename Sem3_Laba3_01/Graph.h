@@ -75,16 +75,14 @@ public:
 	}
 
 	//добавляет смежную вершину element к vertex
-	void AddPath(T vertex, T element)
-	{
+	void AddPath(T vertex, T element){
 		for (int i = 0; i < count; i++)
 			if (graph[i]->GetFirst() == vertex)
 				graph[i]->Prepend(element);
 	}
 
 	//добавляет все смежные вершины к vertex
-	void SetPaths(T vertex, T* paths, int size)
-	{
+	void SetPaths(T vertex, T* paths, int size){
 		for (int i=0; i < size; i++)
 			AddPath(vertex, paths[i]);
 	}
@@ -111,7 +109,7 @@ public:
 	}
 
 	//поиск в ширину по нахождению минимального пути между 2 вершинами
-	ArraySequence<int>* BFS(T vertFrom, T vertTo){
+	LinkedListSequence<int>* BFS(T vertFrom, T vertTo){
 		
 		//нахождение пути
 
@@ -128,10 +126,10 @@ public:
 		bool* used = new bool[count]; // метка проходили вершину или нет
 		int* dist = new int[count];   // список расстояний вершин до From
 		int* pred = new int[count];   // посследовательность вершин в которые заходили от From к To
+		//номера, откуда пришли
 
 		// начальные данные
-		for (int j=0; j < count; j++)
-		{
+		for (int j=0; j < count; j++){
 			used[j] = false;
 			dist[j] = MAX;
 			pred[i] = -1;
@@ -140,8 +138,8 @@ public:
 		used[i] = true;
 		dist[i] = 0;
 
-		while (queue->Empty() == true){
-			int v= queue->GetFirst();
+		while (queue->Empty()){
+			int v = queue->GetFirst();
 			queue->DeleteFirst();
 
 			for (int i=1; i < graph[v]->GetLength(); ++i){
@@ -150,7 +148,7 @@ public:
 				while (this->graph[j]->GetFirst() != el)
 					j++;
 
-				// отмечаем веришны, которые прошли
+				// отмечаем веришны, в которых еще не были
 				if (!used[j]){
 					used[j] = true;
 					queue->Append(j);
@@ -165,25 +163,26 @@ public:
 		ArraySequence<int>* path = new ArraySequence<int>[count];
 
 		//если не дошли
-		if (!used[k])
-		{
-			path->Append(-1);
-			return path;
+		if (!used[k]){
+			LinkedListSequence<int>* path1 = new LinkedListSequence<int>;
+			path1->Append(-1);
+			return path1;
 		}
 
 		int cur=k;
 		path->Prepend(cur);
 
-		while (pred[cur] != -1)
-		{
-			cur = pred[cur]; // местоположение. Идем в обратном порядке    
+		while (pred[cur] != -1){ //пока не дойдем до старта идем в обратном порядке   
+			cur = pred[cur];    
 			path->Prepend(cur);
 		}
-		
+
 		//для удобного вывода
-		ArraySequence<int>* path1 = new ArraySequence<int>(count);
-		for (int i=0; i < path->GetLength(); i++)
-			path1->Append(path->Get(i));
+
+		int size = path->GetLength();
+		LinkedListSequence<int>* path1 = new LinkedListSequence<int>;
+		for (int i=0; i < size ; i++)
+			path1->Append(graph[path->Get(i)]->GetFirst());
 
 		return path1;
 	}

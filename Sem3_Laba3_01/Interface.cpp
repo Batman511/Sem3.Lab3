@@ -1,14 +1,14 @@
 #include <iostream>
 #include "Graph.h"
+#include "Tests.h"
 using namespace std;
 
 int interface() {
 	int choice =0;
 	cout << "///////////////GRAPH///////////////\n";
-	bool exit = false ;
-	bool exit1 = false ;
+	bool exit = false;
 
-	while (!exit1){
+	while (!exit){
 		int size=0;
 		cout << "Enter the count of vertexes: \n";
 		//cout << "Write Quantity of elements: ";
@@ -43,6 +43,7 @@ int interface() {
 			cout << "\n";
 		}
 
+
 		//вывод списка смежности
 		cout << "The adjacency list of a graph: \n"
 			 << "Vertex: Paths \n";
@@ -50,24 +51,24 @@ int interface() {
 			cout << " " << vertex[i] << ": ";
 			graph.GetGraph(vertex[i])->Print();
 		}
-		cout << "\n";
 
-		while (!exit)
-		{
+		bool exit1 = false;
+		while (!exit1){
 			int a=0;
 			int b=0;
-			cout << "Write the vertexes to finding the shortest path: \n"
+			cout << "\nWrite the vertexes to finding the shortest path: \n"
 				<< " From: ";
 			cin >> a;
-			cout <<" To: ";
+			cout <<" To:   ";
 			cin >> b;
 
-			ArraySequence<int>* path = graph.BFS(a, b);
+			LinkedListSequence<int>* path = graph.BFS(a, b);
+
 			for (int i=0; i < path->GetLength(); i++){
 				if (i != path->GetLength() - 1)
-					cout << path->Get(i) + 1 << " -> ";
+					cout << path->Get(i)  << " -> ";
 				else
-					cout << path->Get(i) + 1 << "\n";
+					cout << path->Get(i)  << "\n";
 			}
 
 			cout << "Choose the option: \n"
@@ -75,11 +76,13 @@ int interface() {
 				<< "2. Change the graph \n" 
 				<< "3. Exit \n";
 
-			std::cin >> choice;
+			cin >> choice;
 			if (choice == 1)
-				exit = false;
+				exit1 = false;
+
 			if (choice == 2)
-				exit = true;
+				exit1 = true;
+
 			if (choice == 3){
 				exit = true;
 				exit1 = true;
@@ -87,31 +90,16 @@ int interface() {
 		}
 	}
 
+	cout << "\n Good job.";
+
 	return 0;
 }
-
-/*
-void Print() {
-	/*for (int i(0); i < this->list->GetLength(); ++i)
-	{
-		if (i % 10 == 0 && i != 0)
-			std::cout << this->list->Get(i) << " " << std::endl;
-		else
-			std::cout << this->list->Get(i) << " ";
-	}
-
-	std::cout << " |" << list->Get(0) << "|";
-	for (int i(1); i < list->GetLength(); i++)
-		std::cout << " --> " << list->Get(i);
-	std::cout << " " << std::endl;
-
-} */
-
 
 
 int main() {
 
-	interface();
+	//interface();
+	interface_Tests();
 
 	return 0;
 }

@@ -30,14 +30,19 @@ public:
 		if (size < 0) throw std::length_error("Index is negative");
 		if (size == 0) throw std::length_error("Node is empty");
 
-		Node* tail = new Node{ *values,nullptr };
-		head = tail;
+		//так будет стек
+		//Node* tail = new Node{ *values,nullptr };
+		//head = tail;
+
+		head = new Node{ *values,nullptr };
 
 		for (size_t i = 1; i < size; i++) {
-			Node* body = new Node{ *(values + i),head };
 			//так будет стек
+			//Node* body = new Node{ *(values + i),head };
 			//tail->next = body;
-			head = body;
+			//head = body;
+
+			head = new Node{ *(values + i),head };
 		}
 
 		this->size = size;
@@ -218,8 +223,7 @@ public:
 
 	}
 
-	void DeleteFirst()
-	{
+	void DeleteFirst(){
 		/*Node* body{ this->head };
 		LinkedList<T>* newNode = new LinkedList<T>;
 		newNode->GetSubList(1,newNode->GetLength());
@@ -227,11 +231,16 @@ public:
 		head = new Node{ head };
 		*/
 		
+		//предыдущий вар
+		/*
 		Node* body{ head };
-
 		body = body->next; 
 		head = new Node{ body->values,body };
-		--this->size;
+		--this->size; */
 
+		Node* body{ head->next };
+		delete[] head;
+		this->head = body;
+		--size;
 	}
 };
