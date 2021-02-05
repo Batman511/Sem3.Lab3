@@ -381,8 +381,18 @@ int Test_List_Sequence() {
 
 int Test_Graph() {
 
-	int* vertex = new int[4];
-	Graph<int> graph1(4, vertex);
+	int* vertex = new int[5];
+	vertex[0] = 0;
+	vertex[1] = 1;
+	vertex[1] = 1;
+	vertex[1] = 1;
+	vertex[2] = 2;
+	vertex[2] = 2;
+	vertex[3] = 3;
+	vertex[3] = 3;
+	vertex[4] = 4;
+
+	Graph<int> graph1(5, vertex);
 	graph1.AddPath(vertex[0], 1);
 	graph1.AddPath(vertex[1], 0);
 	graph1.AddPath(vertex[1], 2);
@@ -391,13 +401,76 @@ int Test_Graph() {
 	graph1.AddPath(vertex[2], 3);
 	graph1.AddPath(vertex[3], 2);
 	graph1.AddPath(vertex[3], 1);
+	graph1.AddPath(vertex[4], 4);
 
+	/*
 	cout << "The adjacency list of a graph: \n"
 		<< "Vertex: Paths \n";
 	for (int i = 0; i < graph1.GetCount(); i++) {
 		cout << " " << vertex[i] << ": ";
 		graph1.GetGraph(vertex[i])->Print();
-	}
+	} 
+	*/
+
+	LinkedListSequence<int>* list1 = graph1.GetGraph(2);
+	if (list1->Get(0)==2, list1->Get(1) == 1, list1->Get(2) == 3)
+		std::cout << "Test GetGraph: success" << "\n";
+	else {
+		std::cout << "Test GetGraph: fail" << "\n";
+	};
+
+
+	if (graph1.GetCount() == 5)
+		std::cout << "Test GetCount: success" << "\n";
+	else {
+		std::cout << "Test GetCount: fail" << "\n";
+	};
+
+	if (graph1.GetCountPaths() == 4)
+		std::cout << "Test GetCountPaths: success" << "\n";
+	else {
+		std::cout << "Test GetCountPaths: fail" << "\n";
+	};
+	
+	if (graph1.CheckVert(0,1) == true && graph1.CheckVert(0, 2) == false)
+		std::cout << "Test CheckVert: success" << "\n";
+	else {
+		std::cout << "Test CheckVert: fail" << "\n";
+	};
+
+	graph1.AddPath(3, 4);
+	graph1.AddPath(4, 3);
+	if (graph1.CheckVert(3, 4) == true)
+		std::cout << "Test AddPath: success" << "\n";
+	else {
+		std::cout << "Test AddPath: fail" << "\n";
+	};
+	
+	int* path = new int[3];
+	path[0] = 2;
+	path[1] = 1;
+	path[2] = 3;
+	graph1.SetPaths(0, path, 3);
+	if (graph1.CheckVert(0, 2) == true && graph1.CheckVert(0, 3) == true)
+		std::cout << "Test SetPaths: success" << "\n";
+	else {
+		std::cout << "Test SetPaths: fail" << "\n";
+	};
+	graph1.AddPath(2, 0);
+	graph1.AddPath(3, 0);
+
+	if (graph1.SearchVert(4) == 4 && graph1.SearchVert(6) == -1)
+		std::cout << "Test SearchVert: success" << "\n";
+	else {
+		std::cout << "Test SearchVert: fail" << "\n";
+	};
+
+	LinkedListSequence<int>* list2 = graph1.BFS(1, 4);
+	if (list2->Get(0) == 1 && list2->Get(1) == 3 && list2->Get(2) == 4)
+		std::cout << "Test BFS: success" << "\n";
+	else {
+		std::cout << "Test BFS: fail" << "\n";
+	};
 
 
 	return 0;

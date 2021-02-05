@@ -11,7 +11,6 @@ int interface() {
 	while (!exit){
 		int size=0;
 		cout << "Enter the count of vertexes: \n";
-		//cout << "Write Quantity of elements: ";
 		cin >> size;
 
 		int* vertex = new int[size];
@@ -24,7 +23,6 @@ int interface() {
 		Graph<int> graph(size, vertex);
 		ArraySequence<int> paths;
 
-		//cout << "\nWrite the paths for every vertexes: \n";
 		cout << "\nWrite the Adjacency List for each vertex \n"; 
 		for (int i=0; i < size; i++){
 			int quantity = 0;
@@ -37,7 +35,6 @@ int interface() {
 			for (int k=0; k < quantity; k++){
 				cout << "   ";
 				cin >> a;
-				//cout << " ";
 				graph.AddPath(vertex[i], a);
 			}
 			cout << "\n";
@@ -98,8 +95,8 @@ int interface() {
 
 int main() {
 
-	//interface();
-	interface_Tests();
+	interface();
+	//interface_Tests();
 
 	return 0;
 }

@@ -171,7 +171,6 @@ public:
 			Node* newNode = new Node{ data,(body->next)->next };
 			body->next = newNode;
 		}
-		//this->size += 1;
 	}
 
 	//Соединене двух списков
@@ -224,20 +223,6 @@ public:
 	}
 
 	void DeleteFirst(){
-		/*Node* body{ this->head };
-		LinkedList<T>* newNode = new LinkedList<T>;
-		newNode->GetSubList(1,newNode->GetLength());
-		
-		head = new Node{ head };
-		*/
-		
-		//предыдущий вар
-		/*
-		Node* body{ head };
-		body = body->next; 
-		head = new Node{ body->values,body };
-		--this->size; */
-
 		Node* body{ head->next };
 		delete[] head;
 		this->head = body;

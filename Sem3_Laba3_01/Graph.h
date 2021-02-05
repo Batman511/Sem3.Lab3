@@ -52,18 +52,18 @@ public:
 		return this->count;
 	}
 
-	//количество рёбер                    подумать насчет /2
+	//количество рёбер  
 	int GetCountPaths(){
 		int num=0;
 		for (int i=0; i < count; i++)
 			num += graph[i]->GetLength();
-		return num - count;
+		return (num - count)/2;
 	}
 
 	//проверка на смежность двух вершин
 	bool CheckVert(T vertex1, T vertex2){
 		int i(SearchVert(vertex1));
-		bool check(true);
+		bool check(false);
 
 		if (i == -1)
 			return false;
@@ -77,7 +77,7 @@ public:
 	//добавляет смежную вершину element к vertex
 	void AddPath(T vertex, T element){
 		for (int i = 0; i < count; i++)
-			if (graph[i]->GetFirst() == vertex)
+			if (graph[i]->GetFirst() == vertex) 
 				graph[i]->Prepend(element);
 	}
 
@@ -87,24 +87,16 @@ public:
 			AddPath(vertex, paths[i]);
 	}
 
-	/*
-	void Print(){
-		std::cout << "\nVertex: Paths \n";
-		for (int i=0; i < count; i++){
-			std::cout << " " << i + 1 << ": ";
-			graph[i]->Print();
-			std::cout << "\n";
-		}
-	} */
-
 	//возвращает номер вершины в графе (иначе -1)
 	int SearchVert(T vertex){
 		int i=0;
 
-		while (graph[i]->GetFirst() != vertex)
-			i++;
+		while (i < count ) {
+			if (graph[i]->GetFirst() != vertex) ++i;
+			else break;
+		}
 
-		if (i == count + 1) return -1;
+		if (i == count ) return -1;
 		else return i;
 	}
 
